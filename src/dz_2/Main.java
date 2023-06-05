@@ -64,7 +64,8 @@ public class MainClass {
         Cat[] cats = catGenerate(casCounter);
         System.out.println();
 
-        Plate plate = new Plate(50);
+        Plate plate = new Plate(30);
+        Plate plate1 = plate;
         System.out.println("В тарелке имеется еды: ");
         plate.info();
         System.out.println();
@@ -75,6 +76,13 @@ public class MainClass {
         newPlate.info();
         System.out.println();
 
+        int eat = eatAdd(cats, plate1);
+        if (eat != 0){
+            System.out.println("Некоторые котики остались голодными, добавьте еды, не менее " + eat);
+        }
+        else System.out.println("Спасибо, все котики сытые");
+
+
     }
 
     //Метод кормит котов
@@ -83,12 +91,13 @@ public class MainClass {
         Plate newPlate = plate;
 
         for (int i = 0; i < newCats.length; i++){
-            if(newPlate.getFood() > newCats[i].getAppetite()) {
+            if(newPlate.getFood() >= newCats[i].getAppetite()) {
                 newPlate.setFood(newPlate.getFood() - newCats[i].getAppetite());
+                if (newCats[i].getAppetite() != 0){
                 newCats[i].setAppetite(newCats[i].getAppetite() - newCats[i].getAppetite());
                 newCats[i].setSatiety(true);
-            }else break;
-
+                } else newCats[i].setSatiety(false);
+            }
         }
 
         for (Cat c : newCats){
@@ -140,10 +149,23 @@ public class MainClass {
         for (int i = 0; i < cat; i++){
             cats[i] = new Cat(catName(), appetitGen(), false);
         }
-
         for (Cat c : cats)
             System.out.println(c);
-
         return cats;
+    }
+
+    //Метод информирует о количестве оставшейся еды
+    protected static int eatAdd (Cat[] cats, Plate plate){
+        Cat[] newCats = cats;
+        Plate newPlate = plate;
+        int s = 0;
+        for (int i = 0; i < newCats.length; i++){
+            if(newPlate.getFood() >= newCats[i].getAppetite()) {
+                newPlate.setFood(newPlate.getFood() - newCats[i].getAppetite());
+                newCats[i].setAppetite(newCats[i].getAppetite() - newCats[i].getAppetite());
+            } else s = s + newCats[i].getAppetite();
+        }
+        System.out.println("Нехватило " + s + " еды");
+        return s;
     }
 }
