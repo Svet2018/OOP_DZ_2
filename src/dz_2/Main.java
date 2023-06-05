@@ -3,6 +3,7 @@ package dz_2;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
@@ -79,10 +80,20 @@ public class MainClass {
         int eat = eatAdd(cats, plate1);
         if (eat != 0){
             System.out.println("Некоторые котики остались голодными, добавьте еды, не менее " + eat);
+            System.out.print("> ");
+            addedEat();
         }
         else System.out.println("Спасибо, все котики сытые");
 
 
+
+    }
+
+
+    protected static int addedEat(){
+        Scanner sc = new Scanner(System.in);
+        int number = sc.nextInt();
+        return number;
     }
 
     //Метод кормит котов
