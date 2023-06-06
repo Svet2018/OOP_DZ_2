@@ -78,14 +78,13 @@ public class MainClass {
         System.out.println();
 
         int eat = eatAdd(cats, plate1);
-        if (eat != 0){
-            System.out.println("Некоторые котики остались голодными, добавьте еды, не менее " + eat);
-            System.out.print("> ");
-            addedEat();
+        int f = 0;
+        while (eat - f > 0){
+                System.out.println("Некоторые котики остались голодными, добавьте еды, не менее " + eat);
+                System.out.print("> ");
+                f = addedEat();
         }
-        else System.out.println("Спасибо, все котики сытые");
-
-
+        System.out.println("Спасибо, все котики сытые");
 
     }
 
